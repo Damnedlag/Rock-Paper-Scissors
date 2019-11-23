@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+
+computerPlay = () => {
+    choices = ["rock", "paper", "scissors"];
+    return choices[Math.floor(Math.random() * choices.length)]
+    }
+
+promptUser = () => {
+    playerSelection = prompt("Choose one: rock, paper, scissors!", "rock");
+    if (playerSelection === "rock" || playerSelection === "paper" ||
+    playerSelection === "scissors") {
+        return playerSelection;
+    }
+    else {
+        promptUser();
+    }
+}
+
+playRound = (playerSelection, computerSecelection) => {
+    if (playerSelection === computerSecelection) {
+        return "It's a tie"
+    }
+    else if (playerSelection === "rock" && computerSecelection === "paper" || 
+            playerSelection === 'paper' && computerSecelection === 'scissors' || 
+            playerSelection === "scissors" && computerSecelection === 'rock') {
+        return "You lost"
+    }
+    else {
+        return "You won"
+
+    }
+}
+
+game = () => {
+    for (let i = 0; i <= 5; i++) {
+        promptUser();
+        const computerSecelection = computerPlay();
+        console.log(computerSecelection)
+        console.log(playRound(playerSelection, computerSecelection))
+    }
+}
+
+game();
+
+
+</script>
+</body>
