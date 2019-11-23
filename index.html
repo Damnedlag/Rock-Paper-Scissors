@@ -16,6 +16,7 @@ computerPlay = () => {
 
 promptUser = () => {
     playerSelection = prompt("Choose one: rock, paper, scissors!", "rock");
+    playerSelection = playerSelection.toLowerCase();
     if (playerSelection === "rock" || playerSelection === "paper" ||
     playerSelection === "scissors") {
         return playerSelection;
