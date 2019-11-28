@@ -7,6 +7,17 @@
     <title>Document</title>
 </head>
 <body>
+
+    <div id="container">
+    <div class="buttons">
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+    </div>   
+    </div>
+
+
+
 <script>
 
 computerPlay = () => {
@@ -26,31 +37,76 @@ promptUser = () => {
     }
 }
 
-playRound = (playerSelection, computerSecelection) => {
-    if (playerSelection === computerSecelection) {
+playRound = (playerSelection, computerSelection) => {
+    if (playerSelection === computerSelection) {
         return "It's a tie"
     }
-    else if (playerSelection === "rock" && computerSecelection === "paper" || 
-            playerSelection === 'paper' && computerSecelection === 'scissors' || 
-            playerSelection === "scissors" && computerSecelection === 'rock') {
-        return "You lost"
+    else if (playerSelection === "rock" && computerSelection === "paper" || 
+            playerSelection === 'paper' && computerSelection === 'scissors' || 
+            playerSelection === "scissors" && computerSelection === 'rock') {
+        computerScore++;
+        return "You lost this time"
     }
     else {
+        yourScore++;
         return "You won"
 
     }
 }
 
-game = () => {
-    for (let i = 0; i <= 5; i++) {
-        promptUser();
-        const computerSecelection = computerPlay();
-        console.log(computerSecelection)
-        console.log(playRound(playerSelection, computerSecelection))
+resetScore = () => {
+    yourScore = 0;
+    computerScore = 0;
+    standings.textContent = "Your score is 0, computers score is 0"
+}
+
+let yourScore = 0;
+
+let computerScore = 0;
+
+win = (yourScore, computerScore) => {
+    if (yourScore === 5) {
+        alert("You won!")
+        resetScore(yourScore, computerScore)
+    }
+    else if (computerScore === 5) {
+        alert("The computer won!")
+        resetScore()
     }
 }
 
-game();
+
+
+const body = document.body;
+const standings = document.createElement('div');
+standings.classList.add('standings');
+standings.innerHTML = "<h1>First to reach the score of 5 wins</h1>";
+const container = document.querySelector('#container');
+container.appendChild(standings);
+const selections = document.createElement('div');
+const selection1 = document.createElement('div');
+const selection2 = document.createElement('div');
+const verdict = document.createElement('div')
+
+const buttons = document.querySelectorAll('button')
+buttons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+    playerSelection = button.id
+    computerSelection = computerPlay()
+    selection1.textContent = "You selected " + playerSelection
+    selection2.textContent = "Computer plays: " + computerSelection
+    verdict.textContent = playRound(playerSelection, computerSelection)
+    standings.textContent = "Your score is " + yourScore + ", computers score is " + computerScore
+    win(yourScore, computerScore)
+})
+})
+
+container.appendChild(selections)
+selections.appendChild(selection1)
+selections.appendChild(selection2)
+container.appendChild(verdict)
+
+window.addEventListener('onclick', playRound)
 
 
 </script>
